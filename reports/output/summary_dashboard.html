@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parity Migration Summary Dashboard</title>
+    <style>
+        :root {
+            --bg: #090d16;
+            --surface: #111827;
+            --surface-border: #1f2937;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #3b82f6;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        body {
+            margin: 0;
+            padding: 30px;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        .stat-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: left;
+        }
+        th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--surface-border);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #1a2233;
+            color: #d1d5db;
+        }
+        tr:hover td {
+            background: #141d2f;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .report-link {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .report-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 style="margin: 0 0 6px 0; font-size: 24px;">Parity Migration Summary Dashboard</h1>
+                <div style="color: var(--text-secondary); font-size: 14px;">5-Layer Semantic Verification Audit Trail • Generated: 2026-10-18 14:09:32</div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-label">Total SQL Objects</div>
+                <div class="stat-value">12</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Verified Pass Rate</div>
+                <div class="stat-value" style="color: #ef4444;">0.0% (0/12)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total LLM Spend</div>
+                <div class="stat-value">$0.00000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Execution Time</div>
+                <div class="stat-value">0.6ms</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Object Name</th>
+                        <th>Status</th>
+                        <th>Verification Layers</th>
+                        <th>Attempts</th>
+                        <th>Cost</th>
+                        <th>Duration</th>
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td><strong>01_simple_select_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.1ms</td>
+            <td><a href="01_simple_select_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>02_nvl_coalesce_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="02_nvl_coalesce_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>03_decode_job_category_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="03_decode_job_category_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>04_null_safe_concat_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="04_null_safe_concat_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>05_sysdate_math_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.1ms</td>
+            <td><a href="05_sysdate_math_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>06_date_trunc_month_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.1ms</td>
+            <td><a href="06_date_trunc_month_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>07_rownum_top_earners_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="07_rownum_top_earners_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>08_outer_join_plus_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.1ms</td>
+            <td><a href="08_outer_join_plus_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>09_dual_scalar_math_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="09_dual_scalar_math_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>10_dept_salary_aggregates_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.1ms</td>
+            <td><a href="10_dept_salary_aggregates_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>11_empty_string_edge_case_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="11_empty_string_edge_case_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+        <tr>
+            <td><strong>12_nested_subquery_salary_attempt_3</strong></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455;">FAIL</span></td>
+            <td><span class="badge" style="background:#ef444422; color:#ef4444; border:1px solid #ef444455; margin-right:3px;">L1</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L2</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L3</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L4</span><span class="badge" style="background:#6b728022; color:#6b7280; border:1px solid #6b728055; margin-right:3px;">L5</span></td>
+            <td>3</td>
+            <td>$0.00000</td>
+            <td>0.0ms</td>
+            <td><a href="12_nested_subquery_salary_attempt_3_evidence.html" class="report-link">View Evidence</a></td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -6,7 +6,7 @@ from parity.kb.loader import kb
 
 def test_kb_loads_entries():
     entries = kb.get_all()
-    assert len(entries) >= 15
+    assert len(entries) >= 20
 
 
 def test_kb_lookup_by_id():

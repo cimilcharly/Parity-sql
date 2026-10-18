@@ -130,3 +130,16 @@ Below are the 20 primary semantic divergences cataloged by Parity:
 ### 20. `ORA_DIFF_020`: String Padding and Comparison Semantics
 - **Oracle**: `CHAR(n)` data types are blank-padded and use blank-padded comparison semantics.
 - **PostgreSQL**: `CHAR(n)` also pads spaces, but behavior in concatenation and pattern matching can diverge from `VARCHAR`.
+
+---
+
+### 21. `ORA_DIFF_021`: `LISTAGG` Aggregate Function
+- **Oracle**: `LISTAGG(col, ', ') WITHIN GROUP (ORDER BY col)`.
+- **PostgreSQL**: `STRING_AGG(col, ', ' ORDER BY col)`.
+
+---
+
+### 22. `ORA_DIFF_022`: Sequence Access Syntax
+- **Oracle**: `sequence_name.NEXTVAL` and `sequence_name.CURRVAL`.
+- **PostgreSQL**: `nextval('sequence_name')` and `currval('sequence_name')`.
+

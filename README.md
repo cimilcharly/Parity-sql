@@ -95,12 +95,25 @@ docker compose up -d
 parity transpile src/parity/benchmark/corpus/08_outer_join_plus.sql
 ```
 
-### 6. Run Baseline Benchmark Suite
+### 6. Run Autonomous Repair Loop (Phase 2)
 ```powershell
-parity bench
+# Repair failing conversions using LLM + KB diagnostics with budget enforcement
+parity repair src/parity/benchmark/corpus/02_nvl_coalesce.sql --provider mock
 ```
 
-### 7. Run Verification & Generate HTML Evidence Report
+### 7. Analyze SQL Lineage & Object Complexity (Phase 2)
+```powershell
+# Extract dependencies, score complexity, and sort objects topologically
+parity lineage src/parity/benchmark/corpus
+```
+
+### 8. Run 4-Way Ablation Study (Phase 2)
+```powershell
+# Compare baseline sqlglot vs AST rules vs +LLM vs +LLM+KB
+parity ablation
+```
+
+### 9. Run Verification & Generate HTML Evidence Report
 ```powershell
 parity verify src/parity/benchmark/corpus/01_simple_select.sql
 ```
@@ -111,6 +124,7 @@ parity verify src/parity/benchmark/corpus/01_simple_select.sql
 
 - **Strict Read-Only Guard**: Destructive DDL and DML statements (`DROP`, `TRUNCATE`, `ALTER`, `DELETE`, `UPDATE`, `INSERT`, `GRANT`) are blocked before database execution.
 - **Zero Raw Data to Models**: Raw row values are never transmitted to LLMs or external services. Only aggregate metrics, column names, and cryptographic bucket hashes are used.
+- **Hard Cost Caps & Runaway Loop Protection**: Hard caps on attempts (max 3), per-object spend ($0.05 limit), and response caching to prevent runaway costs.
 - **PII Redaction**: Literals and credentials are automatically stripped and masked.
 
 ---
@@ -120,12 +134,24 @@ parity verify src/parity/benchmark/corpus/01_simple_select.sql
 ```
 Parity/
 ├── src/parity/
-│   ├── benchmark/         # Corpus queries & baseline benchmark runner
+│   ├── benchmark/         # Corpus queries, baseline runner, and ablation study
 │   │   ├── corpus/        # 12+ Oracle dialect workload test cases
-│   │   └── runner.py      # Automated benchmark execution & pass rate logger
+│   │   ├── runner.py      # Automated benchmark execution & pass rate logger
+│   │   └── ablation.py    # 4-way ablation matrix runner
 │   ├── kb/                # Knowledge Base
 │   │   ├── dialect_differences.yaml  # 15+ cataloged Oracle vs Postgres differences
 │   │   └── loader.py      # Search engine and error diagnostic matcher
+│   ├── lineage/           # SQL dependency analysis & complexity scoring
+│   │   ├── analyzer.py    # DDL/query dependency parser
+│   │   ├── complexity.py  # Query complexity scoring (Simple -> Extreme)
+│   │   └── topological.py # Kahn's algorithm topological execution ordering
+│   ├── llm/               # Multi-provider LLM abstraction & cost tracker
+│   │   ├── cost_tracker.py# Hard token limits, cost caps & runaway loop guards
+│   │   ├── cache.py       # Persistent response caching
+│   │   ├── prompts.py     # Privacy-first prompt templates (zero raw rows)
+│   │   └── providers.py   # Mock, Ollama, and Hosted API connectors
+│   ├── repair/            # Autonomous repair loop
+│   │   └── engine.py      # Analyze -> Diagnose -> Propose -> Verify loop
 │   ├── reporting/         # Modern HTML evidence audit report generator
 │   ├── security/          # Read-only guards and PII redaction
 │   ├── transpiler/        # AST transforms (Outer joins, SYSDATE, TRUNC, Dual, Concat)
@@ -136,8 +162,8 @@ Parity/
 ├── docker/
 │   ├── oracle/init/       # Oracle HR schema DDL and seed data
 │   └── postgres/init/     # PostgreSQL HR schema DDL and seed data
-├── tests/                 # Unit tests (Transpiler, Verifier, Security, KB)
-├── bench/results/         # Baseline pass rate JSON logs
+├── tests/                 # Unit tests (Transpiler, Verifier, Security, KB, Lineage, Repair, LLM)
+├── bench/results/         # Baseline and ablation study JSON logs
 ├── docker-compose.yml     # Local Oracle Free + Postgres services
 ├── DATA_SOURCES.md        # Licensing and data provenance
 ├── SEMANTIC_DIFFERENCES.md# Detailed dialect divergence catalog

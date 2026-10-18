@@ -73,6 +73,9 @@ class DatabaseManager:
         if self.cfg.read_only_guard:
             Redactor.assert_read_only(sql)
 
+        if not self.check_oracle_health():
+            raise DatabaseError("Oracle database is offline (check 'docker ps' or launch 'docker compose up -d')")
+
         try:
             import oracledb
         except ImportError:
@@ -84,7 +87,7 @@ class DatabaseManager:
                 user=self.cfg.oracle.user,
                 password=self.cfg.oracle.password,
                 dsn=dsn,
-                tcp_connect_timeout=2.0,
+                tcp_connect_timeout=1.0,
             ) as connection:
                 with connection.cursor() as cursor:
                     if self.cfg.oracle.schema:
@@ -96,7 +99,7 @@ class DatabaseManager:
         except Exception as e:
             raise DatabaseError(f"Oracle Execution Error: {e}") from e
 
-    def _get_pg_connection(self, timeout: int = 2):
+    def _get_pg_connection(self, timeout: int = 1):
         """Returns a PostgreSQL connection using psycopg (v3) or psycopg2."""
         try:
             import psycopg
@@ -130,6 +133,9 @@ class DatabaseManager:
         if self.cfg.read_only_guard:
             Redactor.assert_read_only(sql)
 
+        if not self.check_postgres_health():
+            raise DatabaseError("PostgreSQL database is offline (check 'docker ps' or launch 'docker compose up -d')")
+
         try:
             with self._get_pg_connection() as conn:
                 with conn.cursor() as cursor:
@@ -146,6 +152,9 @@ class DatabaseManager:
         """Validates query compilation on PostgreSQL without executing side effects using EXPLAIN."""
         if self.cfg.read_only_guard:
             Redactor.assert_read_only(sql)
+
+        if not self.check_postgres_health():
+            raise DatabaseError("PostgreSQL database is offline (check 'docker ps' or launch 'docker compose up -d')")
 
         try:
             with self._get_pg_connection() as conn:

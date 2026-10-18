@@ -36,6 +36,9 @@ class VerificationReport:
     layers: List[LayerResult] = field(default_factory=list)
     total_duration_ms: float = 0.0
     error: Optional[str] = None
+    attempts: int = 1
+    cost_usd: float = 0.0
+    applied_kb_entries: List[str] = field(default_factory=list)
 
     def get_layer(self, number: int) -> Optional[LayerResult]:
         for layer in self.layers:

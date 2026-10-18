@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parity Evidence Report: 01_simple_select</title>
+    <title>Parity Evidence Report: 01_simple_select_attempt_3</title>
     <style>
         :root {
             --bg: #090d16;
@@ -54,6 +54,30 @@
             background: #ef444422;
             color: #ef4444;
             border: 1px solid #ef444455;
+        }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
         .grid {
             display: grid;
@@ -130,10 +154,31 @@
         <div class="header">
             <div class="title-group">
                 <h1>Parity Verification Evidence</h1>
-                <div class="subtitle">Query Object: <strong>01_simple_select</strong> • Generated: 2026-10-17 20:41:12</div>
+                <div class="subtitle">Query Object: <strong>01_simple_select_attempt_3</strong> • Generated: 2026-10-18 14:09:32</div>
             </div>
             <div class="status-pill">VERIFICATION FAILED</div>
         </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-label">Verification Status</div>
+                <div class="stat-value" style="color: #ef4444; font-size: 16px;">VERIFICATION FAILED</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Repair Attempts</div>
+                <div class="stat-value">3</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Cost</div>
+                <div class="stat-value">$0.00000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Duration</div>
+                <div class="stat-value">0.1ms</div>
+            </div>
+        </div>
+
+        
 
         <div class="grid">
             <div class="card">
@@ -172,10 +217,8 @@ ORDER BY
                     FAILED
                 </span>
             </div>
-            <div class="layer-msg">Postgres EXPLAIN validation failed: connection to server at &quot;localhost&quot; (::1), port 5432 failed: timeout expired
-connection to server at &quot;localhost&quot; (127.0.0.1), port 5432 failed: timeout expired
-</div>
-            <div class="layer-meta">Execution: 4067.38ms</div>
+            <div class="layer-msg">PostgreSQL database is offline (check &#x27;docker ps&#x27; or launch &#x27;docker compose up -d&#x27;)</div>
+            <div class="layer-meta">Execution: 0.06ms</div>
         </div>
         
             </div>

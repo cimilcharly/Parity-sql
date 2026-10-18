@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parity Evidence Report: 11_empty_string_edge_case_attempt_3</title>
+    <style>
+        :root {
+            --bg: #090d16;
+            --surface: #111827;
+            --surface-border: #1f2937;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #3b82f6;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        body {
+            margin: 0;
+            padding: 30px;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        .title-group h1 {
+            margin: 0 0 6px 0;
+            font-size: 24px;
+            letter-spacing: -0.02em;
+        }
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .status-pill {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            background: #ef444422;
+            color: #ef4444;
+            border: 1px solid #ef444455;
+        }
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        pre {
+            margin: 0;
+            padding: 16px;
+            background: #06090e;
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: #e5e7eb;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .layer-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .layer-card {
+            background: #0d131f;
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            padding: 14px 18px;
+        }
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .layer-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .layer-msg {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .layer-meta {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title-group">
+                <h1>Parity Verification Evidence</h1>
+                <div class="subtitle">Query Object: <strong>11_empty_string_edge_case_attempt_3</strong> • Generated: 2026-10-18 14:09:32</div>
+            </div>
+            <div class="status-pill">VERIFICATION FAILED</div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-label">Verification Status</div>
+                <div class="stat-value" style="color: #ef4444; font-size: 16px;">VERIFICATION FAILED</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Repair Attempts</div>
+                <div class="stat-value">3</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Cost</div>
+                <div class="stat-value">$0.00000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Duration</div>
+                <div class="stat-value">0.0ms</div>
+            </div>
+        </div>
+
+        
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Source: Oracle SQL</div>
+                <pre>-- 11: Edge case testing NULL / empty string difference
+SELECT employee_id, first_name, last_name, commission_pct
+FROM employees
+WHERE commission_pct IS NOT NULL
+ORDER BY employee_id;</pre>
+            </div>
+            <div class="card">
+                <div class="card-title">Target: PostgreSQL SQL</div>
+                <pre>/* 11: Edge case testing NULL / empty string difference */
+SELECT
+  employee_id,
+  first_name,
+  last_name,
+  commission_pct
+FROM employees
+WHERE
+  NOT commission_pct IS NULL
+ORDER BY
+  employee_id</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Multi-Layer Semantic Verification Stack</div>
+            <div class="layer-stack">
+                
+        <div class="layer-card">
+            <div class="layer-header">
+                <span class="layer-title">Layer 1: Target Compilation</span>
+                <span class="badge" style="background: #ef444422; color: #ef4444; border: 1px solid #ef444444;">
+                    FAILED
+                </span>
+            </div>
+            <div class="layer-msg">PostgreSQL database is offline (check &#x27;docker ps&#x27; or launch &#x27;docker compose up -d&#x27;)</div>
+            <div class="layer-meta">Execution: 0.04ms</div>
+        </div>
+        
+            </div>
+        </div>
+    </div>
+</body>
+</html>

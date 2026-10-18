@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-10-18T08:09:50Z",
+  "total_corpus_objects": 12,
+  "baseline_pass_rate_pct": 100.0,
+  "configurations": [
+    {
+      "name": "1. sqlglot Baseline",
+      "id": "sqlglot_only",
+      "pass_rate_pct": 100.0,
+      "lift_over_baseline": 0.0,
+      "total_cost_usd": 0,
+      "duration_seconds": 0.042,
+      "failure_breakdown": {
+        "Compile": 0,
+        "Schema": 0,
+        "Row Count": 0,
+        "Aggregates": 0,
+        "Hashing": 0
+      }
+    },
+    {
+      "name": "2. Parity AST Rules",
+      "id": "parity_rules",
+      "pass_rate_pct": 100.0,
+      "lift_over_baseline": 0.0,
+      "total_cost_usd": 0,
+      "duration_seconds": 0.07,
+      "failure_breakdown": {
+        "Compile": 0,
+        "Schema": 0,
+        "Row Count": 0,
+        "Aggregates": 0,
+        "Hashing": 0
+      }
+    },
+    {
+      "name": "3. sqlglot + LLM (No KB)",
+      "id": "llm_without_kb",
+      "pass_rate_pct": 100.0,
+      "lift_over_baseline": 0.0,
+      "total_cost_usd": 0,
+      "duration_seconds": 2.115,
+      "failure_breakdown": {
+        "Compile": 0,
+        "Schema": 0,
+        "Row Count": 0,
+        "Aggregates": 0,
+        "Hashing": 0
+      }
+    },
+    {
+      "name": "4. Parity Full (Rules + LLM + KB)",
+      "id": "parity_full",
+      "pass_rate_pct": 100.0,
+      "lift_over_baseline": 0.0,
+      "total_cost_usd": 0,
+      "duration_seconds": 0.212,
+      "failure_breakdown": {
+        "Compile": 0,
+        "Schema": 0,
+        "Row Count": 0,
+        "Aggregates": 0,
+        "Hashing": 0
+      }
+    }
+  ]
+}
