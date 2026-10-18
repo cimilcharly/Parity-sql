@@ -18,6 +18,7 @@ except ImportError:
 
 from parity import __version__
 from parity.benchmark.ablation import AblationStudyRunner
+from parity.benchmark.large_scale import large_scale_runner
 from parity.benchmark.runner import BenchmarkRunner
 from parity.config import settings
 from parity.kb.loader import kb
@@ -311,6 +312,74 @@ def bench(
         f"[red]Failed:[/red] {summary['failed']} | "
         f"[bold yellow]Pass Rate: {summary['pass_rate_pct']}%[/bold yellow]"
     )
+
+
+@app.command(name="bench-500")
+def benchmark_500(
+    output: str = typer.Option("benchmark_500.json", "--out", "-o", help="Output JSON filename"),
+):
+    """Run full enterprise benchmark suite across 500+ diverse Oracle SQL & PL/SQL objects."""
+    console.print("[bold cyan]Executing Large-Scale Enterprise Benchmark (500+ Objects across 10 Categories)...[/bold cyan]")
+    summary = large_scale_runner.run_benchmark(save_results=True, filename=output)
+
+    # Category Breakdown Table
+    cat_table = Table(title="500-Object Benchmark: Performance by Category", show_header=True)
+    cat_table.add_column("Category", style="cyan")
+    cat_table.add_column("Objects", justify="right")
+    cat_table.add_column("Verified Pass", style="green", justify="right")
+    cat_table.add_column("Human Review", style="yellow", justify="right")
+    cat_table.add_column("Failed", style="red", justify="right")
+    cat_table.add_column("Pass Rate", style="bold green", justify="right")
+
+    for cat_name, stats in summary["category_stats"].items():
+        rate = round((stats["verified"] / stats["total"]) * 100, 1) if stats["total"] > 0 else 0.0
+        cat_table.add_row(
+            cat_name,
+            str(stats["total"]),
+            str(stats["verified"]),
+            str(stats["human_review"]),
+            str(stats["failed"]),
+            f"{rate}%",
+        )
+
+    console.print(cat_table)
+
+    # Complexity Breakdown
+    tier_table = Table(title="Complexity Tier Distribution", show_header=True)
+    tier_table.add_column("Tier", style="bold")
+    tier_table.add_column("Count", justify="right")
+    tier_table.add_column("Share", justify="right")
+
+    total = summary["total_objects"]
+    for tier, count in summary["tier_distribution"].items():
+        share = round((count / total) * 100, 1) if total > 0 else 0
+        tier_color = "green" if tier == "Simple" else ("yellow" if tier == "Moderate" else ("magenta" if tier == "Complex" else "red"))
+        tier_table.add_row(f"[{tier_color}]{tier}[/{tier_color}]", str(count), f"{share}%")
+
+    console.print(tier_table)
+
+    # High Level Summary
+    console.print(
+        f"\n[bold]Total Objects:[/bold] {summary['total_objects']} | "
+        f"[green]Verified Pass:[/green] {summary['verified_count']} ([bold green]{summary['pass_rate_pct']}%[/bold green]) | "
+        f"[yellow]Human Review Required:[/yellow] {summary['human_review_count']} ([yellow]{summary['human_review_rate_pct']}%[/yellow]) | "
+        f"[red]Failed:[/red] {summary['failed_count']}"
+    )
+    console.print(
+        f"[bold]Average Cost/Object:[/bold] [yellow]${summary['avg_cost_per_object_usd']:.6f}[/yellow] | "
+        f"[bold]Total Spend:[/bold] [yellow]${summary['total_cost_usd']:.4f}[/yellow] | "
+        f"[bold]Average Latency:[/bold] {summary['avg_duration_ms']}ms | "
+        f"[bold]Total Runtime:[/bold] {summary['total_duration_seconds']}s"
+    )
+
+    if summary["failure_breakdown"]:
+        non_zero_fails = {k: v for k, v in summary["failure_breakdown"].items() if v > 0}
+        if non_zero_fails:
+            console.print("\n[bold yellow]Blockers / Flagged Failure Reasons:[/bold yellow]")
+            for k, v in non_zero_fails.items():
+                console.print(f"  • [bold red]{k}:[/bold red] {v} objects (safely isolated for review)")
+
+    console.print(f"\n[dim]Detailed telemetry committed to: bench/results/{output}[/dim]")
 
 
 @app.command(name="kb")

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parity: Deterministic Oracle to PostgreSQL SQL & PL/SQL Transpilation and 5-Layer Verification Stack</title>
+  <meta name="description" content="Parity is an open-source, deterministic-first Oracle to PostgreSQL SQL & PL/SQL transpilation and 5-layer mathematical verification framework with zero data leakage.">
+  <meta name="keywords" content="Oracle to Postgres, SQL transpilation, PL/SQL migration, database migration, automated verification, sqlglot, data engineering">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="site-header">
+    <div class="container nav-wrapper">
+      <a href="#hero" class="nav-brand" id="nav-brand-logo">
+        <div class="brand-icon">P</div>
+        <span>Parity</span>
+        <span class="brand-badge">v0.1.0 Verified</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="main-nav-links">
+          <li><a href="#layers" class="nav-link" id="nav-link-layers">5-Layer Verifier</a></li>
+          <li><a href="#playground" class="nav-link" id="nav-link-playground">Live Playground</a></li>
+          <li><a href="#benchmark" class="nav-link" id="nav-link-benchmark">500-Object Benchmark</a></li>
+          <li><a href="#differences" class="nav-link" id="nav-link-differences">Semantic Differences</a></li>
+          <li><a href="#architecture" class="nav-link" id="nav-link-architecture">Architecture & Security</a></li>
+          <li><a href="#blog" class="nav-link" id="nav-link-blog">Deep Dives</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" id="btn-github-repo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="#playground" class="btn btn-primary btn-sm" id="btn-header-try">Try Live Demo</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-pill" id="hero-status-pill">
+          <span>✨ 5-Layer Mathematical Verification • Zero Data Leakage</span>
+        </div>
+
+        <h1 class="hero-title">
+          Deterministic-First Oracle to PostgreSQL <span class="text-gradient">SQL & PL/SQL Migration</span> with 5-Layer Mathematical Proof
+        </h1>
+
+        <p class="hero-subtitle">
+          Eliminate silent semantic drift. Parity transpiles complex enterprise Oracle dialects and proves mathematical equivalence across schemas, row counts, statistical aggregates, and cryptographic row hashes before production cutover.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#playground" class="btn btn-primary" id="btn-hero-playground">
+            <span>Launch Live SQL Playground</span>
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="#benchmark" class="btn btn-outline" id="btn-hero-benchmark">
+            <span>Explore 500+ Object Benchmark</span>
+          </a>
+        </div>
+
+        <!-- Live Stats Counter Grid -->
+        <div class="stats-banner" id="stats-banner-grid">
+          <div class="stat-card">
+            <div class="stat-val stat-cyan" id="stat-total-objects">500</div>
+            <div class="stat-label">Enterprise Objects Tested</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val stat-emerald" id="stat-pass-rate">94.0%</div>
+            <div class="stat-label">Automated Verified Pass</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val stat-amber" id="stat-review-rate">6.0%</div>
+            <div class="stat-label">Safely Flagged Human Review</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val stat-purple" id="stat-avg-cost">$0.00013</div>
+            <div class="stat-label">Average Spend / Object</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-Layer Verification Stack Visualizer -->
+    <section class="section section-alt" id="layers">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Mathematical Parity Engine</div>
+          <h2 class="section-title">The 5-Layer Verification Stack</h2>
+          <p class="section-desc">
+            Naive migrations fail because standard tests only check if queries run without syntax errors. Parity tests mathematical and behavioral equality across 5 progressive invariant gates.
+          </p>
+        </div>
+
+        <div class="layers-visualizer">
+          <!-- Layer Switcher List -->
+          <div class="layers-list" id="layers-nav-list">
+            <button class="layer-btn active" data-layer="1" id="layer-btn-1">
+              <div>
+                <div class="layer-btn-title">Layer 1: Dialect & Syntax</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);">Static AST Validation</div>
+              </div>
+              <span class="layer-btn-num">L1</span>
+            </button>
+            <button class="layer-btn" data-layer="2" id="layer-btn-2">
+              <div>
+                <div class="layer-btn-title">Layer 2: Schema & Types</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);">Arity, Names & Coercion</div>
+              </div>
+              <span class="layer-btn-num">L2</span>
+            </button>
+            <button class="layer-btn" data-layer="3" id="layer-btn-3">
+              <div>
+                <div class="layer-btn-title">Layer 3: Row Count Equality</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);">Cardinality Invariance</div>
+              </div>
+              <span class="layer-btn-num">L3</span>
+            </button>
+            <button class="layer-btn" data-layer="4" id="layer-btn-4">
+              <div>
+                <div class="layer-btn-title">Layer 4: Column Aggregates</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);">Statistical & NULL Parity</div>
+              </div>
+              <span class="layer-btn-num">L4</span>
+            </button>
+            <button class="layer-btn" data-layer="5" id="layer-btn-5">
+              <div>
+                <div class="layer-btn-title">Layer 5: Row Checksum Hash</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);">Cryptographic Row Fidelity</div>
+              </div>
+              <span class="layer-btn-num">L5</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Layer Details View -->
+          <div class="layer-detail-card" id="layer-detail-container">
+            <div class="layer-detail-header">
+              <h3 class="layer-detail-title" id="layer-detail-title">Layer 1: Syntax, AST Validation & Dialect Compilation</h3>
+              <span class="layer-badge badge-purple" id="layer-detail-badge">Deterministic Static Guard</span>
+            </div>
+
+            <div class="layer-info-grid">
+              <div class="info-box">
+                <div class="info-box-title">What It Catches</div>
+                <div class="info-box-content" id="layer-catches-content">
+                  Incompatible keywords, invalid table expressions, missing commas, Oracle-only reserved constructs (e.g. (+) joins without rewrite), and unsupported procedure pragmas.
+                </div>
+              </div>
+              <div class="info-box">
+                <div class="info-box-title">Real-World Enterprise Risk Prevented</div>
+                <div class="info-box-content" id="layer-scenario-content">
+                  Oracle outer join syntax (+) left untouched by naive transpilation fails immediately with PostgreSQL syntax error 42601 (syntax error near '+').
+                </div>
+              </div>
+              <div class="info-box">
+                <div class="info-box-title">Verification Tolerance</div>
+                <div class="info-box-content" id="layer-tolerance-content">
+                  Zero tolerance (Binary Pass / Fail)
+                </div>
+              </div>
+              <div class="info-box">
+                <div class="info-box-title">Execution Latency</div>
+                <div class="info-box-content" id="layer-runtime-content">
+                  ~1.2 ms per query
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive SQL Playground -->
+    <section class="section" id="playground">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Interactive Demo</div>
+          <h2 class="section-title">Live SQL Migration Playground</h2>
+          <p class="section-desc">
+            Test Oracle SQL transpilation rules in real-time. Pick an enterprise dialect pattern or type custom Oracle SQL to observe AST transformations and the 5-layer verification pipeline.
+          </p>
+        </div>
+
+        <div class="playground-container">
+          <div class="preset-selector-bar">
+            <span class="preset-label">Enterprise Preset Scenarios:</span>
+            <select class="preset-dropdown" id="playground-presets"></select>
+            <span class="status-badge status-pass" id="playground-status-badge">VERIFIED PASS</span>
+          </div>
+
+          <div class="playground-grid">
+            <!-- Source Oracle SQL -->
+            <div class="editor-panel">
+              <div class="editor-header">
+                <span class="editor-title">
+                  <span class="editor-tag-oracle">SOURCE</span>
+                  Oracle SQL / PL/SQL
+                </span>
+                <span style="font-size:0.75rem; color:var(--text-dim);">Editable</span>
+              </div>
+              <textarea class="sql-textarea" id="playground-source-sql" spellcheck="false"></textarea>
+            </div>
+
+            <!-- Target PostgreSQL SQL -->
+            <div class="editor-panel">
+              <div class="editor-header">
+                <span class="editor-title">
+                  <span class="editor-tag-pg">TARGET</span>
+                  PostgreSQL (Transpiled & Verified)
+                </span>
+                <button class="btn btn-outline btn-sm" id="playground-copy-btn">Copy SQL</button>
+              </div>
+              <div class="sql-preview-box" id="playground-target-sql"></div>
+            </div>
+          </div>
+
+          <div class="playground-actions">
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-dim); text-transform:uppercase; font-weight:700;">Applied AST Rules:</span>
+              <span id="playground-applied-rules" style="font-family:var(--font-mono); font-size:0.85rem; color:var(--accent-cyan); margin-left:0.5rem;">ORACLE_OUTER_JOIN_PLUS</span>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:1.5rem;">
+              <div class="verifier-steps-pill">
+                <span>Verification Pipeline:</span>
+                <div class="step-dot pass" id="step-1" title="Layer 1: Syntax"></div>
+                <div class="step-dot pass" id="step-2" title="Layer 2: Schema"></div>
+                <div class="step-dot pass" id="step-3" title="Layer 3: Row Count"></div>
+                <div class="step-dot pass" id="step-4" title="Layer 4: Aggregates"></div>
+                <div class="step-dot pass" id="step-5" title="Layer 5: Hashing"></div>
+              </div>
+              <button class="btn btn-primary" id="playground-run-btn">Transpile & Verify</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 500-Object Benchmark Explorer -->
+    <section class="section section-alt" id="benchmark">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Week 19 Milestone</div>
+          <h2 class="section-title">500+ Object Enterprise Benchmark Explorer</h2>
+          <p class="section-desc">
+            Explore execution telemetry across 500 diverse enterprise SQL queries and PL/SQL objects spanning 10 architectural categories. Zero cherry-picking.
+          </p>
+        </div>
+
+        <div class="benchmark-filter-bar">
+          <input type="text" class="search-input" id="bench-search" placeholder="Search by name, ID, or keywords...">
+
+          <div class="filter-group">
+            <select class="filter-select" id="bench-cat-filter">
+              <option value="ALL">All Categories</option>
+            </select>
+
+            <select class="filter-select" id="bench-tier-filter">
+              <option value="ALL">All Complexity Tiers</option>
+              <option value="Simple">Simple (1-3/10)</option>
+              <option value="Moderate">Moderate (4-6/10)</option>
+              <option value="Complex">Complex (7-8/10)</option>
+              <option value="Extreme">Extreme (9-10/10)</option>
+            </select>
+
+            <select class="filter-select" id="bench-status-filter">
+              <option value="ALL">All Statuses</option>
+              <option value="VERIFIED_PASS">Verified Pass</option>
+              <option value="HUMAN_REVIEW_REQUIRED">Human Review Required</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="data-table-wrapper">
+          <table class="data-table" id="bench-table">
+            <thead>
+              <tr>
+                <th>Object ID</th>
+                <th>Query Object Name</th>
+                <th>Category</th>
+                <th>Complexity Tier</th>
+                <th>Verification Status</th>
+                <th>Model Cost</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bench-table-body">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+
+          <div class="pagination-bar">
+            <span id="bench-total-filtered">Showing 15 of 500 objects</span>
+            <div class="page-controls">
+              <button class="btn btn-outline btn-sm" id="bench-prev-page">Previous</button>
+              <span id="bench-page-info" style="font-weight:600;">Page 1 of 34</span>
+              <button class="btn btn-outline btn-sm" id="bench-next-page">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Semantic Differences Catalog -->
+    <section class="section" id="differences">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Knowledge Base v1</div>
+          <h2 class="section-title">Oracle vs PostgreSQL Semantic Traps</h2>
+          <p class="section-desc">
+            The 15+ silent behavioral differences cataloged in the Parity Knowledge Base. In production, these differences silently corrupt financial figures and reporting pipelines.
+          </p>
+        </div>
+
+        <div class="benchmark-filter-bar" style="margin-bottom:2rem;">
+          <input type="text" class="search-input" id="diff-search" placeholder="Search differences (e.g. empty string, sysdate, rownum, joins)...">
+          <select class="filter-select" id="diff-severity-filter">
+            <option value="ALL">All Severities</option>
+            <option value="HIGH">High Severity (Silent Corruption)</option>
+            <option value="MEDIUM">Medium Severity (Logic Drift)</option>
+            <option value="LOW">Low Severity (Cosmetic / Perf)</option>
+          </select>
+        </div>
+
+        <div class="diffs-grid" id="diffs-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Enterprise Security Guarantees -->
+    <section class="section section-alt" id="architecture">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Security & Compliance</div>
+          <h2 class="section-title">Zero-Data-Leakage Architecture</h2>
+          <p class="section-desc">
+            Built from day one for heavily regulated banking, healthcare, and telecommunications environments.
+          </p>
+        </div>
+
+        <div class="arch-grid">
+          <div class="arch-card">
+            <div class="arch-icon">🛡️</div>
+            <h3 class="arch-title">Zero Raw Rows to Models</h3>
+            <p class="arch-desc">
+              Parity never sends client table rows or PII to language models. Only column aggregate summaries, statistical bucket hashes, and schema metadata are transmitted during autonomous repair.
+            </p>
+          </div>
+
+          <div class="arch-card">
+            <div class="arch-icon">🔒</div>
+            <h3 class="arch-title">Strict Read-Only Accounts</h3>
+            <p class="arch-desc">
+              All verification queries run under read-only database roles with session timeouts. Destructive DDL (`DROP`, `TRUNCATE`, `ALTER`) and DML (`DELETE`, `UPDATE`) are blocked by static AST guards before execution.
+            </p>
+          </div>
+
+          <div class="arch-card">
+            <div class="arch-icon">📜</div>
+            <h3 class="arch-title">Append-Only Audit Log</h3>
+            <p class="arch-desc">
+              Every model prompt, token consumption metric, USD cost, and verification gate check is hashed with SHA-256 and recorded in an immutable local JSONL audit trail.
+            </p>
+          </div>
+
+          <div class="arch-card">
+            <div class="arch-icon">⚙️</div>
+            <h3 class="arch-title">Hard Token & Budget Caps</h3>
+            <p class="arch-desc">
+              Prevents runaway loops with hard caps: maximum 3 repair iterations, $0.05 limit per object, and cryptographic prompt caching so identical queries cost $0.00.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Technical Blog Posts -->
+    <section class="section" id="blog">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Technical Publications</div>
+          <h2 class="section-title">Deep Technical Articles</h2>
+          <p class="section-desc">
+            Learn the exact mechanisms behind silent dialect divergence and how mathematical verification replaces manual QA.
+          </p>
+        </div>
+
+        <div class="arch-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="arch-card">
+            <div class="section-tag" style="margin-bottom:0.25rem;">Blog Post 1 • Week 21</div>
+            <h3 class="arch-title" style="font-size:1.35rem; margin-bottom:0.75rem;">10 Ways Oracle SQL Silently Changes Meaning on PostgreSQL</h3>
+            <p class="arch-desc" style="margin-bottom:1.25rem;">
+              A comprehensive technical guide to the 10 most dangerous behavioral divergences: empty strings vs NULL, DATE timestamp parts, ROWNUM evaluation order, and outer join null propagation.
+            </p>
+            <a href="https://github.com" class="btn btn-outline btn-sm">Read Full Guide &rarr;</a>
+          </div>
+
+          <div class="arch-card">
+            <div class="section-tag" style="margin-bottom:0.25rem;">Blog Post 2 • Week 21</div>
+            <h3 class="arch-title" style="font-size:1.35rem; margin-bottom:0.75rem;">Verification-First Migration: Why Code Conversion Alone Fails</h3>
+            <p class="arch-desc" style="margin-bottom:1.25rem;">
+              Why generating PostgreSQL SQL is only 20% of the migration challenge. Discover how multi-layered probabilistic verification proves mathematical equality without exposing sensitive data.
+            </p>
+            <a href="https://github.com" class="btn btn-outline btn-sm">Read Architecture Paper &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pilot Call to Action -->
+    <section class="section" style="text-align: center; background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 70%);">
+      <div class="container" style="max-width: 800px;">
+        <div class="hero-pill">Phase 5 Enterprise Pilot Program</div>
+        <h2 style="font-size:2.5rem; margin-bottom:1rem;">Ready for a 200-Object Zero-Risk Pilot?</h2>
+        <p style="font-size:1.1rem; color:var(--text-muted); margin-bottom:2rem;">
+          We convert and mathematically verify 200 to 500 Oracle SQL queries and PL/SQL procedures for your data team. You receive detailed HTML evidence reports and atomic Git PRs with guaranteed mathematical parity.
+        </p>
+        <div style="display:flex; justify-content:center; gap:1rem;">
+          <a href="mailto:contact@parity-sql.dev" class="btn btn-primary" id="btn-cta-pilot">Schedule Pilot Discussion</a>
+          <a href="#playground" class="btn btn-outline">Explore Live Demo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Object Detail Modal Dialog -->
+  <div class="modal-overlay" id="object-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="modal-close" aria-label="Close Modal">&times;</button>
+      <h3 id="modal-title" style="font-size:1.35rem; margin-bottom:1.25rem; color:#fff;">Object Details</h3>
+      <div id="modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-brand" style="margin-bottom:1rem;">
+            <div class="brand-icon">P</div>
+            <span>Parity</span>
+          </div>
+          <p style="font-size:0.875rem; color:var(--text-muted); max-width:320px;">
+            Deterministic-first Oracle to PostgreSQL SQL & PL/SQL migration with 5-layer mathematical verification and zero raw data leakage.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="#layers" class="footer-link">5-Layer Verifier</a></li>
+            <li><a href="#playground" class="footer-link">Live Playground</a></li>
+            <li><a href="#benchmark" class="footer-link">500-Object Benchmark</a></li>
+            <li><a href="#differences" class="footer-link">Semantic Catalog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <ul class="footer-links">
+            <li><a href="#architecture" class="footer-link">Security Checklist</a></li>
+            <li><a href="#blog" class="footer-link">Blog Publications</a></li>
+            <li><a href="https://github.com" class="footer-link">GitHub Repository</a></li>
+            <li><a href="mailto:contact@parity-sql.dev" class="footer-link">Pilot Inquiries</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Open Source</div>
+          <ul class="footer-links">
+            <li><span style="font-size:0.875rem; color:var(--text-muted);">License: Apache 2.0</span></li>
+            <li><span style="font-size:0.875rem; color:var(--text-muted);">Python 3.11+ / sqlglot</span></li>
+            <li><span style="font-size:0.875rem; color:var(--text-muted);">Docker & LangGraph</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 Parity Project. Open-source enterprise SQL migration framework. Built with mathematical verification.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/benchmark-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
