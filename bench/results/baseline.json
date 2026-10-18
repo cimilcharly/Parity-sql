@@ -1,0 +1,136 @@
+{
+  "mode": "parity_rules",
+  "live_database_mode": false,
+  "total_queries": 12,
+  "passed": 12,
+  "failed": 0,
+  "pass_rate_pct": 100.0,
+  "duration_seconds": 4.313,
+  "timestamp": "2026-10-17T14:10:06Z",
+  "results": [
+    {
+      "name": "01_simple_select",
+      "file": "01_simple_select.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 01: Simple selection with projection and predicate */\nSELECT\n  employee_id,\n  first_name,\n  last_name,\n  salary\nFROM employees\nWHERE\n  salary >= 10000\nORDER BY\n  salary DESC,\n  employee_id ASC",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "02_nvl_coalesce",
+      "file": "02_nvl_coalesce.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 02: NVL null handling on commission_pct */\nSELECT\n  employee_id,\n  last_name,\n  salary,\n  COALESCE(commission_pct, 0) AS comm_rate\nFROM employees\nORDER BY\n  employee_id",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "03_decode_job_category",
+      "file": "03_decode_job_category.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 03: DECODE function categorization */\nSELECT\n  employee_id,\n  last_name,\n  job_id,\n  CASE\n    WHEN job_id = 'AD_PRES'\n    THEN 'Executive'\n    WHEN job_id = 'AD_VP'\n    THEN 'Executive'\n    WHEN job_id = 'IT_PROG'\n    THEN 'Technical'\n    ELSE 'General'\n  END AS role_tier\nFROM employees\nORDER BY\n  employee_id",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "04_null_safe_concat",
+      "file": "04_null_safe_concat.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 04: String concatenation with potential NULL values */\nSELECT\n  employee_id,\n  first_name || ' ' || last_name AS full_name,\n  first_name || ' (' || phone_number || ')' AS contact_card\nFROM employees\nORDER BY\n  employee_id",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "05_sysdate_math",
+      "file": "05_sysdate_math.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 05: SYSDATE reference and date tenure calculation */\nSELECT\n  employee_id,\n  last_name,\n  hire_date,\n  ROUND(\n    CAST(CAST((\n      CURRENT_TIMESTAMP - hire_date\n    ) AS DOUBLE PRECISION) / 365.25 AS DECIMAL),\n    2\n  ) AS tenure_years\nFROM employees\nWHERE\n  hire_date < TO_DATE('2006-01-01', 'YYYY-MM-DD')\nORDER BY\n  employee_id",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "06_date_trunc_month",
+      "file": "06_date_trunc_month.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 06: TRUNC on dates to group by month */\nSELECT\n  DATE_TRUNC('month', hire_date) AS hire_month,\n  COUNT(*) AS num_hired,\n  AVG(salary) AS avg_starting_salary\nFROM employees\nGROUP BY\n  DATE_TRUNC('month', hire_date)\nORDER BY\n  hire_month",
+      "applied_rules": [
+        "ORA_RULE_004"
+      ],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "07_rownum_top_earners",
+      "file": "07_rownum_top_earners.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 07: ROWNUM filtering for top earners */\nSELECT\n  *\nFROM (\n  SELECT\n    employee_id,\n    last_name,\n    salary\n  FROM employees\n  ORDER BY\n    salary DESC\n)\nWHERE\n  ROWNUM <= 3",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "08_outer_join_plus",
+      "file": "08_outer_join_plus.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 08: Legacy Oracle (+) outer join syntax */\nSELECT\n  d.department_name,\n  e.last_name,\n  e.salary\nFROM departments AS d, employees AS e\nWHERE\n  d.department_id = e.department_id\nORDER BY\n  d.department_name,\n  e.last_name",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "09_dual_scalar_math",
+      "file": "09_dual_scalar_math.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 09: FROM DUAL scalar arithmetic expression */\nSELECT\n  100 * 1.05 AS projected_growth,\n  ROUND(CAST(1234.5678 AS DECIMAL), 2) AS rounded_val",
+      "applied_rules": [
+        "ORA_RULE_003"
+      ],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "10_dept_salary_aggregates",
+      "file": "10_dept_salary_aggregates.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 10: Group by department with multiple numeric aggregates */\nSELECT\n  department_id,\n  COUNT(*) AS emp_count,\n  MIN(salary) AS min_sal,\n  MAX(salary) AS max_sal,\n  ROUND(CAST(AVG(salary) AS DECIMAL), 2) AS avg_sal,\n  SUM(salary) AS total_sal\nFROM employees\nWHERE\n  NOT department_id IS NULL\nGROUP BY\n  department_id\nORDER BY\n  department_id",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "11_empty_string_edge_case",
+      "file": "11_empty_string_edge_case.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 11: Edge case testing NULL / empty string difference */\nSELECT\n  employee_id,\n  first_name,\n  last_name,\n  commission_pct\nFROM employees\nWHERE\n  NOT commission_pct IS NULL\nORDER BY\n  employee_id",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    },
+    {
+      "name": "12_nested_subquery_salary",
+      "file": "12_nested_subquery_salary.sql",
+      "transpile_success": true,
+      "overall_passed": true,
+      "target_sql": "/* 12: Correlated nested subquery: Employees earning above their department's average */\nSELECT\n  e.employee_id,\n  e.last_name,\n  e.salary,\n  e.department_id\nFROM employees AS e\nWHERE\n  e.salary > (\n    SELECT\n      AVG(sub.salary)\n    FROM employees AS sub\n    WHERE\n      sub.department_id = e.department_id\n  )\nORDER BY\n  e.department_id,\n  e.salary DESC",
+      "applied_rules": [],
+      "db_live": false,
+      "note": "Transpiled and AST validated (DB offline)"
+    }
+  ]
+}

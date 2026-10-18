@@ -1,0 +1,43 @@
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: parity-oracle
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: ParitySecret123!
+      APP_USER: hr
+      APP_USER_PASSWORD: hr_password
+    volumes:
+      - ./docker/oracle/init:/container-entrypoint-initdb.d:ro
+      - oracle_data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: parity-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: parity
+      POSTGRES_PASSWORD: parity_secret
+      POSTGRES_DB: parity_db
+    volumes:
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U parity -d parity_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  oracle_data:
+  postgres_data:
