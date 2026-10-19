@@ -170,6 +170,12 @@ parity convert src/parity/benchmark/corpus --branch
 parity audit --limit 20
 ```
 
+### 11. Launch Interactive Web Showcase & SQL Playground Locally
+```powershell
+parity showcase --port 8000
+```
+This serves the client-side interactive SQL transpilation playground, 500-object benchmark explorer, and verifier visualizer locally.
+
 ---
 
 ## Security & Privacy Safeguards

@@ -524,6 +524,43 @@ def audit(
     console.print(f"[dim]Log file: {audit_logger.log_path.resolve()}[/dim]")
 
 
+@app.command()
+def showcase(
+    port: int = typer.Option(8000, "--port", "-p", help="Port to serve the showcase on"),
+    open_browser: bool = typer.Option(True, "--open/--no-open", help="Open browser automatically"),
+):
+    """Launch local HTTP server to view the interactive showcase and SQL playground."""
+    import http.server
+    import socketserver
+    import webbrowser
+
+    docs_dir = Path(__file__).resolve().parent.parent.parent / "docs"
+    if not docs_dir.exists():
+        console.print(f"[bold red]Docs directory not found at {docs_dir}[/bold red]")
+        raise typer.Exit(1)
+
+    console.print(Panel.fit(
+        f"[bold cyan]Parity Interactive Showcase & Benchmark Explorer[/bold cyan]\n"
+        f"Serving [green]{docs_dir}[/green] at [bold underline]http://localhost:{port}[/bold underline]\n"
+        f"[dim]Press Ctrl+C to stop the server[/dim]",
+        border_style="cyan",
+    ))
+
+    if open_browser:
+        webbrowser.open(f"http://localhost:{port}")
+
+    class Handler(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, directory=str(docs_dir), **kwargs)
+
+    with socketserver.TCPServer(("", port), Handler) as httpd:
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            console.print("\n[yellow]Showcase server stopped.[/yellow]")
+
+
 if __name__ == "__main__":
     app()
+
 
