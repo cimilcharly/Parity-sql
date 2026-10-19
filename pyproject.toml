@@ -37,6 +37,10 @@ dev = [
 [project.scripts]
 parity = "parity.cli:app"
 
+[project.urls]
+Homepage = "https://github.com/cimilcharly/Parity-sql"
+Repository = "https://github.com/cimilcharly/Parity-sql"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

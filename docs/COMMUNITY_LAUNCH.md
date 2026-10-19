@@ -36,7 +36,7 @@ This document contains copy, technical angles, and distribution plans for sharin
 > - **Average Cost:** $0.00013 / object
 >
 > Check out the GitHub repo and interactive live demo:
-> - GitHub: https://github.com/parity-sql/parity
+> - GitHub: https://github.com/cimilcharly/Parity-sql
 > - Interactive Demo & Benchmark Explorer: https://parity-sql.dev
 >
 > Would love feedback on the verification layers or edge cases you've hit in your dialect migrations!
@@ -109,4 +109,4 @@ This document contains copy, technical angles, and distribution plans for sharin
 **Tweet 5:**
 > Try the interactive live playground & explore the 500-object benchmark:
 > https://parity-sql.dev
-> ⭐ Star the project on GitHub: https://github.com/parity-sql/parity
+> ⭐ Star the project on GitHub: https://github.com/cimilcharly/Parity-sql

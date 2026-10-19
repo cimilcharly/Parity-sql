@@ -120,8 +120,8 @@ Parity includes a rich, client-side interactive web application located in `docs
 
 ### 1. Installation
 ```powershell
-git clone https://github.com/parity-sql/parity.git
-cd Parity
+git clone https://github.com/cimilcharly/Parity-sql.git
+cd Parity-sql
 pip install -e .
 ```
 
