@@ -61,23 +61,23 @@ Average Cost/Object: $0.000134 USD | Average Latency: 4.22ms | Total Spend: $0.0
 flowchart TD
     A[Source Oracle SQL / PL/SQL] --> B[Lineage Analyzer & Topological DAG]
     B --> C[Deterministic AST Transpiler Engine]
-    C -->|AST Rules: (+) Joins, Dual, Sysdate, Trunc, PL/SQL| D[Target PostgreSQL Candidate]
+    C -->|"AST Rules: (+) Joins, Dual, Sysdate, Trunc, PL/SQL"| D[Target PostgreSQL Candidate]
     
-    D --> E[5-Layer Mathematical Verification Stack]
+    D --> E
     
-    subgraph E [5-Layer Verification Stack]
+    subgraph E ["5-Layer Verification Stack"]
         L1[Layer 1: Target Compilation EXPLAIN]
         L2[Layer 2: Schema & Column Layout Match]
         L3[Layer 3: Row Count Parity Invariant]
-        L4[Layer 4: Column Aggregates & Decimals <= 1e-9]
+        L4["Layer 4: Column Aggregates & Decimals &le; 1e-9"]
         L5[Layer 5: Row-Level Cryptographic Hashing]
         L1 --> L2 --> L3 --> L4 --> L5
     end
     
-    E -->|All 5 Layers Pass| F[Verified Atomic Git PR & HTML Evidence Report]
-    E -->|Mismatch Detected| G[Autonomous Repair Loop with LangGraph & KB]
-    G -->|Max 3 Attempts| E
-    G -->|Procedural Blocker / Unsupported| H[Isolated Human-Review Gate with Remedy]
+    E -->|"All 5 Layers Pass"| F[Verified Atomic Git PR & HTML Evidence Report]
+    E -->|"Mismatch Detected"| G[Autonomous Repair Loop with LangGraph & KB]
+    G -->|"Max 3 Attempts"| E
+    G -->|"Procedural Blocker / Unsupported"| H[Isolated Human-Review Gate with Remedy]
 ```
 
 ---
